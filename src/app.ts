@@ -1,12 +1,17 @@
-import express, { Request, Response, Application } from 'express';
+import express from 'express';
 
-const app: Application = express();
+import routes from './routes';
+import { errorHandler } from '@src/middlewares/handlers/error.handler';
+
+const app = express();
 const port = 3000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world');
-});
+app.use(express.json());
+
+app.use('/api', routes);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
+  console.log(`Listening at port ${port}`);
 });

@@ -4,9 +4,9 @@
   "description": "Movie's catalogue API",
   "main": "src/app.ts",
   "scripts": {
-    "start": "nodemon src/app.ts",
-    "build": "tsc",
-    "serve": "node dist/index.js",
+    "start:dev": "nodemon -r tsconfig-paths/register src/app.ts",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "start": "node -r ./tsconfig-paths-bootstrap.js dist/src/app.js",
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "format": "eslint src/**/*.ts --fix"
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/sebastian-drozd/movies-task#readme",
   "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "express": "^4.18.2"
   },
   "devDependencies": {
@@ -36,6 +38,7 @@
     "prettier": "^3.2.2",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   }
 }
