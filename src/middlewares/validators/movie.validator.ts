@@ -12,7 +12,7 @@ export const addMovieValidator = async (req: Request, res: Response, next: NextF
     next();
   } catch (errors) {
     if (Array.isArray(errors) && errors.length > 0 && errors[0] instanceof ValidationError) {
-      res.status(400).send({
+      res.status(400).json({
         errors: errors.map((error: ValidationError) => ({
           property: error.property,
           value: error.value,
@@ -20,7 +20,7 @@ export const addMovieValidator = async (req: Request, res: Response, next: NextF
         })),
       });
     } else {
-      res.status(500).send({ message: 'Unknown error' });
+      res.status(500).json({ message: 'Unknown error' });
     }
   }
 };
