@@ -6,7 +6,7 @@ import db from '../../db/db.json';
 
 jest.mock('../../src/services/movies.service');
 
-const moviesPath = '/api/movies';
+const moviesPath = '/movies';
 
 describe('Test movies endpoints', () => {
   const newMovie = {
