@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 
-import { add } from '../../src/services/db.service';
-import { CreateMovieDb, MovieDb } from '../../src/types';
 import db from '../../db/db.json';
+import * as dbService from '../../src/services/db.service';
+import { CreateMovieDb, MovieDb } from '../../src/types';
 
 jest.mock('fs/promises');
 
@@ -20,7 +20,7 @@ describe('Test adding a movie', () => {
   };
 
   it('Should return added movie after success', async () => {
-    const result = await add<CreateMovieDb, MovieDb>('movies', newMovie);
+    const result = await dbService.add<CreateMovieDb, MovieDb>('movies', newMovie);
 
     expect(result).toEqual({
       ...newMovie,
@@ -31,6 +31,8 @@ describe('Test adding a movie', () => {
   it('Should return error (wrong data retrieved)', async () => {
     (fs.readFile as jest.Mock).mockResolvedValue(JSON.stringify(db.movies));
 
-    await expect(add<CreateMovieDb, MovieDb>('movies', newMovie)).rejects.toThrow('Error while updating database...');
+    await expect(dbService.add<CreateMovieDb, MovieDb>('movies', newMovie)).rejects.toThrow(
+      'Error while updating database...',
+    );
   });
 });

@@ -1,6 +1,6 @@
+import db from '../../db/db.json';
 import * as dbService from '../../src/services/db.service';
 import * as moviesService from '../../src/services/movies.service';
-import db from '../../db/db.json';
 
 jest.mock('../../src/services/db.service');
 
