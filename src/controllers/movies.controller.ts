@@ -8,7 +8,7 @@ export const addMovie = async (req: Request, res: Response, next: NextFunction):
     const movieData = req.body as CreateMovieType;
     const newMovie = await moviesService.addMovie(movieData);
 
-    res.json(newMovie);
+    res.status(201).json(newMovie);
   } catch (error) {
     next(error);
   }
