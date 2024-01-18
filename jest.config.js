@@ -4,6 +4,7 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.ts'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/types', '<rootDir>/src/start.ts'],
   moduleNameMapper: {
     '^@src/(.*)$': ['<rootDir>/src/$1'],
     '^@db/(.*)$': ['<rootDir>/db/$1'],

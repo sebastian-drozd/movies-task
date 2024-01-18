@@ -16,7 +16,7 @@ describe('Input validation', () => {
     };
   });
 
-  it('Invalid input', async () => {
+  it('Returns error due to invalid input', async () => {
     mockRequest.body = {
       title: '',
       genres: ['Genre1', 'Crime'],
@@ -70,7 +70,7 @@ describe('Input validation', () => {
     });
   });
 
-  it('Correct payload', async () => {
+  it('Returns exception due to unknown error', async () => {
     mockRequest.body = {
       title: 'Test title',
       genres: ['Family', 'Crime'],
@@ -86,7 +86,7 @@ describe('Input validation', () => {
     expect(nextFunction).toHaveBeenCalledTimes(1);
   });
 
-  it('Unknown error', async () => {
+  it('Responses with unknown error', async () => {
     await addMovieValidator(mockRequest as Request, mockResponse as Response, nextFunction);
 
     expect(mockResponse.json).toHaveBeenCalledWith({ message: 'Unknown error' });
