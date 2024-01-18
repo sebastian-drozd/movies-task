@@ -15,7 +15,7 @@ export const getMovies = async (queryParams: ParsedQs): Promise<Movie[]> => {
     runtime: Number(movie.runtime),
   }));
 
-  if (!duration && !genres) {
+  if ((!duration || isNaN(+duration)) && !genres) {
     return [getRandomMovie(movies)];
   }
 
@@ -28,7 +28,7 @@ export const getMovies = async (queryParams: ParsedQs): Promise<Movie[]> => {
 
   const filteredByGenres = filterAndSortMoviesByGenres(movies, genresAsArray);
 
-  if (duration && genres) {
+  if (duration && !isNaN(+duration) && genres) {
     return filterMoviesByDuration(filteredByGenres, +duration);
   }
 
