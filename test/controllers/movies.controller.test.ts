@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import * as moviesService from '../../src/services/movies.service';
 import * as moviesController from '../../src/controllers/movies.controller';
-import db from '../../db/db.json';
+import db from '../../db/mock.db.json';
 import AppError from '../../src/utils/app-error';
 
 jest.mock('../../src/services/movies.service');
@@ -49,6 +49,42 @@ describe('Test adding a movie', () => {
     (moviesService.addMovie as jest.Mock).mockRejectedValue(new AppError('Error while updating database...', 500));
 
     await moviesController.addMovie(mockRequest as Request, mockResponse as Response, nextFunction);
+
+    expect(nextFunction).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Test getting movies', () => {
+  let mockRequest: Partial<Request>;
+  let mockResponse: Partial<Response>;
+  const nextFunction: NextFunction = jest.fn();
+
+  beforeEach(() => {
+    mockRequest = {};
+    mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+  });
+
+  it('Should return single movie (no params)', async () => {
+    const randomIndex = Math.floor(Math.random() * db.movies.length);
+    (moviesService.getMovies as jest.Mock).mockResolvedValue([db.movies[randomIndex]]);
+
+    await moviesController.getMovies(mockRequest as Request, mockResponse as Response, nextFunction);
+
+    expect(mockResponse.status).toHaveBeenCalledWith(200);
+    expect(mockResponse.json).toHaveBeenCalledWith([
+      expect.objectContaining({
+        id: randomIndex + 1,
+      }),
+    ]);
+  });
+
+  it('Should pass error while creating a movie to error handler', async () => {
+    (moviesService.getMovies as jest.Mock).mockRejectedValue(new Error());
+
+    await moviesController.getMovies(mockRequest as Request, mockResponse as Response, nextFunction);
 
     expect(nextFunction).toHaveBeenCalledTimes(1);
   });

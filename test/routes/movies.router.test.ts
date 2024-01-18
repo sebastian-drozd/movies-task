@@ -2,7 +2,7 @@ import supertest from 'supertest';
 
 import app from '../../src/app';
 import * as moviesService from '../../src/services/movies.service';
-import db from '../../db/db.json';
+import db from '../../db/mock.db.json';
 
 jest.mock('../../src/services/movies.service');
 
