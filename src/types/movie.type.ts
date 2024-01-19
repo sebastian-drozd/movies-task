@@ -1,8 +1,8 @@
-import { CreateMovieDb, CreateMovie } from '.';
+import { CreateMovieDb, CreateMovieDTO } from '.';
 
-export type Movie = {
+export type MovieDTO = {
   id: number;
-} & CreateMovie;
+} & CreateMovieDTO;
 
 export type MovieDb = {
   id: number;

@@ -1,15 +1,15 @@
-import { Movie } from '@src/types';
+import { MovieDTO } from '@src/types';
 
-export const getRandomMovie = (movies: Movie[]): Movie => {
+export const getRandomMovie = (movies: MovieDTO[]): MovieDTO => {
   const randomIndex = Math.floor(Math.random() * movies.length);
   return movies[randomIndex];
 };
 
-export const filterMoviesByDuration = (movies: Movie[], duration: number): Movie[] => {
+export const filterMoviesByDuration = (movies: MovieDTO[], duration: number): MovieDTO[] => {
   return movies.filter(({ runtime }) => runtime >= duration - 10 && runtime <= duration + 10);
 };
 
-export const filterAndSortMoviesByGenres = (movies: Movie[], genres: string[]): Movie[] => {
+export const filterAndSortMoviesByGenres = (movies: MovieDTO[], genres: string[]): MovieDTO[] => {
   const lowerCaseGenres = genres.map((genreFromQuery) => genreFromQuery.toLowerCase());
   return movies
     .filter((movie) => movie.genres.some((genre) => lowerCaseGenres.includes(genre.toLowerCase())))

@@ -1,15 +1,15 @@
 import { ParsedQs } from 'qs';
 
-import { MovieDb, Movie, CreateMovieDb as CreateMovieDbType, CreateMovie as CreateMovieType } from '@src/types';
+import { MovieDb, MovieDTO, CreateMovieDb as CreateMovieDbType, CreateMovieDTO } from '@src/types';
 import { filterMoviesByDuration, filterAndSortMoviesByGenres, getRandomMovie } from '@src/helpers/movies';
 import * as dbService from './db.service';
 
-export const getMovies = async (queryParams: ParsedQs): Promise<Movie[]> => {
+export const getMovies = async (queryParams: ParsedQs): Promise<MovieDTO[]> => {
   const { duration, genres } = queryParams;
 
   const moviesDb = await dbService.getAll<MovieDb>('movies');
 
-  const movies: Movie[] = moviesDb.map((movie) => ({
+  const movies: MovieDTO[] = moviesDb.map((movie) => ({
     ...movie,
     year: Number(movie.year),
     runtime: Number(movie.runtime),
@@ -35,7 +35,7 @@ export const getMovies = async (queryParams: ParsedQs): Promise<Movie[]> => {
   return filteredByGenres;
 };
 
-export const addMovie = async (movie: CreateMovieType): Promise<Movie> => {
+export const addMovie = async (movie: CreateMovieDTO): Promise<MovieDTO> => {
   const newMovie = {
     ...movie,
     year: movie.year.toString(),
