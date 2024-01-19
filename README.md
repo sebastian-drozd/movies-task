@@ -9,7 +9,13 @@ Make sure you have the following installed on your machine:
 - [Node.js](https://nodejs.org/) (LTS version recommended, v20.11.0)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
-## First Steps
+## First steps
+
+Copy file `.env.tpl` and rename to `.env`, then set values to preferred ones. Example:
+
+```bash
+PORT=3100
+```
 
 Install dependencies:
 
