@@ -7,7 +7,7 @@ type CreateMovieBase = {
   posterUrl?: string;
 };
 
-export type CreateMovie = CreateMovieBase & {
+export type CreateMovieDTO = CreateMovieBase & {
   year: number;
   runtime: number;
 };
